@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+
+<extension engine="1.0">
+    <id>punbb_card_tooltips</id>
+    <title>MtG, WoW and W:I card tooltips</title>
+    <version>0.1.1</version>
+    <description>
+      Enable tooltips for all links to Magic the Gathering, World of Warcraft and
+      Warhammer:Invasion cards on deckbox.org.
+    </description>
+    <author>Sebastian Zaha</author>
+
+    <minversion>1.3dev</minversion>
+    <maxtestedon>1.3.4</maxtestedon>
+
+
+    <hooks>
+      <hook id="hd_head"><![CDATA[
+          if (FORUM_PAGE == 'viewtopic' || FORUM_PAGE == 'postedit' || 
+                 FORUM_PAGE == 'post' && $forum_user['pun_bbcode_enabled'] == '1') {
+              require_once FORUM_ROOT.'include/parser.php';
+              $jstag = '<script type="text/javascript" src="http://deckbox.org/javascripts/tooltip.js"></script>';
+              $forum_head['js_pun_deckbox'] = $jstag;
+          }
+      ]]></hook>
+
+      <hook id="ps_start"><![CDATA[
+          function handle_deckbox_tag($game, $cards) {
+            $cards = preg_split("/[\n\r]/", $cards);
+            foreach($cards as &$card) {
+                $card = trim($card);
+                preg_match('/([\s0-9-]*)(.*)/', $card, $bits);
+                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'">'.$bits[2].'</a>';
+            }
+            return implode("\n", $cards);
+          }
+      ]]></hook>
+
+      <hook id="ps_preparse_tags_start"><![CDATA[
+          $tags[] = 'mtg'; $tags[] = 'wow'; $tags[] = 'whi';
+          $tags_opened[] = 'mtg'; $tags_opened[] = 'wow'; $tags_opened[] = 'whi';
+          $tags_closed[] = 'mtg'; $tags_closed[] = 'wow'; $tags_closed[] = 'whi';
+          $tags_inline[] = 'mtg'; $tags_inline[] = 'wow'; $tags_inline[] = 'whi';
+          $tags_trim[] = 'mtg'; $tags_trim[] = 'wow'; $tags_trim[] = 'whi';
+          $tags_limit_bbcode['mtg'] = array('url'); 
+          $tags_limit_bbcode['wow'] = array('url'); 
+          $tags_limit_bbcode['whi'] = array('url');
+      ]]></hook>
+
+      <hook id="ps_do_bbcode_replace"><![CDATA[
+          $pattern[] = '`\[mtg\]([^\[]+)\[/mtg\]`e';
+          $replace[] = 'handle_deckbox_tag(\'mtg\', \'$1\')';
+          $pattern[] = '`\[wow\]([^\[]+)\[/wow\]`e';
+          $replace[] = 'handle_deckbox_tag(\'wow\', \'$1\')';
+          $pattern[] = '`\[whi\]([^\[]+)\[/whi\]`e';
+          $replace[] = 'handle_deckbox_tag(\'whi\', \'$1\')';
+      ]]></hook>
+
+      <hook id="co_common"><![CDATA[
+          $pun_extensions_used = array_merge(isset($pun_extensions_used) ? $pun_extensions_used : array(), array($ext_info['id']));
+      ]]></hook>
+    </hooks>
+</extension>
