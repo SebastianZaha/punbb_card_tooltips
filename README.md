@@ -16,7 +16,7 @@ simple card list into links to card pages. It automatically includes the tooltip
 file that provides the mouseover functionality.
 
 As a complement of this plugin there is also a modified version of the 
-(official PunBB BBCode plugin)[http://punbb.informer.com/svn/additions/punbb-1.3/extensions/pun_bbcode/], 
+[official PunBB BBCode plugin](http://punbb.informer.com/svn/additions/punbb-1.3/extensions/pun_bbcode/),
 which provides buttons in the detailed editor for MtG, WoW and WHI respectively. 
 You can see more information about this plugin on is github project page: 
 [PunBB BBCode](https://github.com/SebastianZaha/punbb_bbcode).
