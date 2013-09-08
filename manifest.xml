@@ -4,7 +4,7 @@
 <extension engine="1.0">
     <id>punbb_card_tooltips</id>
     <title>MtG, WoW and W:I card tooltips</title>
-    <version>0.1.1</version>
+    <version>0.2.1</version>
     <description>
       Enable tooltips for all links to Magic the Gathering, World of Warcraft and
       Warhammer:Invasion cards on deckbox.org.
@@ -35,6 +35,11 @@
             }
             return implode("\n", $cards);
           }
+          function handle_external_card($url) {
+            preg_match('/([^\/]*).(jpg|png|jpeg|gif)$/', $url, $bits);
+            $name = str_replace('%20', ' ', $bits[1]);
+            return '<a href="http://'.$url.'" data-tt="http://'.$url.'">'.$name.'</a>';
+          }
       ]]></hook>
 
       <hook id="ps_preparse_tags_start"><![CDATA[
@@ -55,6 +60,8 @@
           $replace[] = 'handle_deckbox_tag(\'wow\', \'$1\')';
           $pattern[] = '`\[whi\]([^\[]+)\[/whi\]`e';
           $replace[] = 'handle_deckbox_tag(\'whi\', \'$1\')';
+          $pattern[] = '`\[mtg2\]([^\[]+)\[/mtg2\]`e';
+          $replace[] = 'handle_external_card(\'$1\')';
       ]]></hook>
 
       <hook id="co_common"><![CDATA[
