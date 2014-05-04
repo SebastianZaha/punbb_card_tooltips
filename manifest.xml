@@ -4,7 +4,7 @@
 <extension engine="1.0">
     <id>punbb_card_tooltips</id>
     <title>MtG, WoW and W:I card tooltips</title>
-    <version>0.2.1</version>
+    <version>0.2.2</version>
     <description>
       Enable tooltips for all links to Magic the Gathering, World of Warcraft and
       Warhammer:Invasion cards on deckbox.org.
@@ -31,7 +31,7 @@
             foreach($cards as &$card) {
                 $card = trim($card);
                 preg_match('/([\s0-9-]*)(.*)/', $card, $bits);
-                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'">'.$bits[2].'</a>';
+                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'" onclick="Tcg.mtgCard.showCard(\'' .$bits[2] . '\');return false">'.$bits[2].'</a>';
             }
             return implode("\n", $cards);
           }
