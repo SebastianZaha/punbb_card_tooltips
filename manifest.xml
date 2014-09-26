@@ -31,7 +31,7 @@
             foreach($cards as &$card) {
                 $card = trim($card);
                 preg_match('/([\s0-9-]*)(.*)/', $card, $bits);
-                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'" onclick="Tcg.mtgCard.showCard(\'' .$bits[2] . '\');return false">'.$bits[2].'</a>';
+                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'" target="_blank">'.$bits[2].'</a>';
             }
             return implode("\n", $cards);
           }
