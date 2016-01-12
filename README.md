@@ -25,9 +25,8 @@ You can see more information about this plugin on is github project page:
 Usage
 -----
 
-To install download and extract 
-[this repository's zipfile](https://github.com/SebastianZaha/punbb_card_tooltips/archive/master.zip) 
-in your forums' extension folder. Then enable the plugin through the forums' 
+To install [download the latest release](https://github.com/SebastianZaha/punbb_card_tooltips/releases) 
+and extract the zip into in your forums' extension folder. Then enable the plugin through the forums' 
 administration / extensions interface.
 
 After installing, use the bbcode tags `[mtg]`, `[wow]`, `[whi]` to surround card names or deck

@@ -1,4 +1,4 @@
-Copyright (c) 2010 Sebastian Zaha
+Copyright (c) 2010-2016 Sebastian Zaha
 
 MIT License
 

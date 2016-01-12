@@ -4,15 +4,15 @@
 <extension engine="1.0">
     <id>punbb_card_tooltips</id>
     <title>MtG, WoW and W:I card tooltips</title>
-    <version>0.2.1</version>
+    <version>0.4.0</version>
     <description>
       Enable tooltips for all links to Magic the Gathering, World of Warcraft and
       Warhammer:Invasion cards on deckbox.org.
     </description>
     <author>Sebastian Zaha</author>
 
-    <minversion>1.3dev</minversion>
-    <maxtestedon>1.3.4</maxtestedon>
+    <minversion>1.4.0</minversion>
+    <maxtestedon>1.4.4</maxtestedon>
 
 
     <hooks>
@@ -31,7 +31,7 @@
             foreach($cards as &$card) {
                 $card = trim($card);
                 preg_match('/([\s0-9-]*)(.*)/', $card, $bits);
-                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'">'.$bits[2].'</a>';
+                $card = $bits[1].'<a href="http://deckbox.org/'.$game.'/'.$bits[2].'" target="_blank">'.$bits[2].'</a>';
             }
             return implode("\n", $cards);
           }
@@ -54,14 +54,14 @@
       ]]></hook>
 
       <hook id="ps_do_bbcode_replace"><![CDATA[
-          $pattern[] = '`\[mtg\]([^\[]+)\[/mtg\]`e';
-          $replace[] = 'handle_deckbox_tag(\'mtg\', \'$1\')';
-          $pattern[] = '`\[wow\]([^\[]+)\[/wow\]`e';
-          $replace[] = 'handle_deckbox_tag(\'wow\', \'$1\')';
-          $pattern[] = '`\[whi\]([^\[]+)\[/whi\]`e';
-          $replace[] = 'handle_deckbox_tag(\'whi\', \'$1\')';
-          $pattern[] = '`\[mtg2\]([^\[]+)\[/mtg2\]`e';
-          $replace[] = 'handle_external_card(\'$1\')';
+          $pattern[] = '`\[mtg\]([^\[]+)\[/mtg\]`';
+          $replace[] = '".handle_deckbox_tag(\'mtg\', $matches[1])."';
+          $pattern[] = '`\[wow\]([^\[]+)\[/wow\]`';
+          $replace[] = '".handle_deckbox_tag(\'wow\', $matches[1])."';
+          $pattern[] = '`\[whi\]([^\[]+)\[/whi\]`';
+          $replace[] = '".handle_deckbox_tag(\'whi\', $matches[1])."';
+          $pattern[] = '`\[mtg2\]([^\[]+)\[/mtg2\]`';
+          $replace[] = '".handle_external_card($matches[1])."';
       ]]></hook>
 
       <hook id="co_common"><![CDATA[
