@@ -4,7 +4,7 @@
 <extension engine="1.0">
     <id>punbb_card_tooltips</id>
     <title>MtG, WoW and W:I card tooltips</title>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
     <description>
       Enable tooltips for all links to Magic the Gathering, World of Warcraft and
       Warhammer:Invasion cards on deckbox.org.
